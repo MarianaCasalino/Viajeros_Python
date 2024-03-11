@@ -4,4 +4,4 @@ from .models import Tarea
 class TareaForm(forms.ModelForm):
     class Meta:
         model = Tarea
-        fields = ['titulo', 'descripcion', 'fecha_limite', 'completada']
+        fields = ['titulo', 'descripcion', 'fecha_limite', 'completada', 'categoria']

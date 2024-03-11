@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.lista_tareas, name='lista_tareas'),
-    path('crear/', views.crear_tarea, name='crear_tarea'),
-    path('editar/<int:tarea_id>/', views.editar_tarea, name='editar_tarea'),
-    path('eliminar/<int:tarea_id>/', views.eliminar_tarea, name='eliminar_tarea'),
+    # Paths para las nuevas funcionalidades
+    path('elaborar_presupuesto/', views.elaborar_presupuesto, name='elaborar_presupuesto'),
+    path('diario_de_viaje/', views.diario_de_viaje, name='diario_de_viaje'),
+    path('mapa/', views.mapa, name='mapa'),
 ]
