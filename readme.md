@@ -1,0 +1,1 @@
+"Este proyecto es una plataforma que será de mucha utilidad para los viajeros"
