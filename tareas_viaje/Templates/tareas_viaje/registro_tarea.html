@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Tareas para el Viaje</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #ffc0cb; /* Color de fondo rosado */
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff; /* Color de fondo blanco */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        textarea,
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #tarea-detalles {
+            margin-top: 20px;
+        }
+        #tarea-detalles div {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Tareas para el Viaje</h1>
+        <form action="/crear_tarea" method="post">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+            <label for="fecha_limite">Fecha Límite:</label>
+            <input type="date" id="fecha_limite" name="fecha_limite" required>
+            <label for="hora_limite">Hora Límite:</label>
+            <input type="time" id="hora_limite" name="hora_limite" required>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria">
+                <option value="transporte">Transporte</option>
+                <option value="alojamiento">Alojamiento</option>
+                <option value="actividades">Actividades Turísticas</option>
+                <option value="alimentacion">Alimentación</option>
+                <option value="gastos">Gastos Diversos</option>
+            </select>
+            <button type="submit">Crear Tarea</button>
+        </form>
+        <!-- Sección de detalles -->
+        <div id="tarea-detalles"></div>
+        <!-- Campo oculto para almacenar tareas -->
+        <input type="hidden" id="tareas-almacenadas" name="tareas_almacenadas" value="">
+
+        <!-- Botón para regresar a Home -->
+        <button onclick="regresarPagina()">Regresar a Home</button>
+    </div>
+    <!-- Script JavaScript -->
+    <script>
+        function regresarPagina() {
+            // Regresar a la página anterior
+            window.history.back();
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const tareaDetalles = document.getElementById("tarea-detalles");
+            const tareasAlmacenadasInput = document.getElementById("tareas-almacenadas");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const titulo = document.getElementById("titulo").value;
+                const descripcion = document.getElementById("descripcion").value;
+                const fechaLimite = document.getElementById("fecha_limite").value;
+                const horaLimite = document.getElementById("hora_limite").value;
+                const categoria = document.getElementById("categoria").value;
+
+                const tarea = {
+                    titulo,
+                    descripcion,
+                    fechaLimite,
+                    horaLimite,
+                    categoria
+                };
+
+                agregarTarea(tarea);
+
+                form.reset();
+            });
+
+            function agregarTarea(tarea) {
+                const tareaDetalleElemento = document.createElement("div");
+                tareaDetalleElemento.innerHTML = `
+                    <h3>${tarea.titulo}</h3>
+                    <p><strong>Descripción:</strong> ${tarea.descripcion}</p>
+                    <p><strong>Fecha Límite:</strong> ${tarea.fechaLimite} ${tarea.horaLimite}</p>
+                    <p><strong>Categoría:</strong> ${tarea.categoria}</p>
+                    <hr>
+                `;
+
+                tareaDetalles.appendChild(tareaDetalleElemento);
+
+                const tareasAlmacenadas = JSON.parse(tareasAlmacenadasInput.value || "[]");
+                tareasAlmacenadas.push(tarea);
+                tareasAlmacenadasInput.value = JSON.stringify(tareasAlmacenadas);
+            }
+        });
+    </script>
+</body>
+</html>

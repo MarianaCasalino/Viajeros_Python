@@ -1,10 +1,8 @@
 from django.urls import path
-from . import views
+from .views import home, registro_tarea, diario_de_viaje
 
 urlpatterns = [
-    path('', views.lista_tareas, name='lista_tareas'),
-    # Paths para las nuevas funcionalidades
-    path('elaborar_presupuesto/', views.elaborar_presupuesto, name='elaborar_presupuesto'),
-    path('diario_de_viaje/', views.diario_de_viaje, name='diario_de_viaje'),
-    path('mapa/', views.mapa, name='mapa'),
+    path('', home, name='home'),
+    path('registro_tarea/', registro_tarea, name='registro_tarea'),
+    path('diario_de_viaje/', diario_de_viaje, name='diario_de_viaje'),
 ]

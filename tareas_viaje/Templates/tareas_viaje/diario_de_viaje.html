@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            background-color: #add8e6; /* Color celeste */
         }
         .container {
             max-width: 800px;
@@ -22,14 +23,64 @@
         p {
             margin-bottom: 10px;
         }
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        #post-container {
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Diario de Viaje</h1>
         <p>Aquí puedes escribir tus experiencias y recuerdos de tu viaje.</p>
-        <!-- Puedes agregar un formulario o simplemente un área de texto donde el usuario pueda escribir su diario -->
-        <textarea rows="10" style="width: 100%;"></textarea>
+        <!-- Área de texto para escribir el diario -->
+        <textarea id="post-input" rows="10"></textarea>
+        
+        <!-- Botón para enviar el post -->
+        <button onclick="enviarPost()">Enviar</button>
+
+        <!-- Contenedor donde se mostrarán los posts -->
+        <div id="post-container"></div>
+
+        <!-- Botón para regresar a la página anterior -->
+        <button onclick="regresarPagina()">Regresar a Home</button>
     </div>
+
+    <script>
+        function enviarPost() {
+            // Obtener el contenido del textarea
+            var post = document.getElementById('post-input').value;
+            
+            // Crear un nuevo elemento <p> para mostrar el post
+            var newPost = document.createElement('p');
+            newPost.textContent = post;
+
+            // Agregar el nuevo elemento al contenedor de posts
+            document.getElementById('post-container').appendChild(newPost);
+
+            // Limpiar el contenido del textarea
+            document.getElementById('post-input').value = '';
+        }
+
+        function regresarPagina() {
+            // Regresar a la página anterior
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
